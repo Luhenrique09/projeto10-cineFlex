@@ -4,6 +4,7 @@ import FilmePage from './FilmePage';
 import GlobalStyle from "./GlobalStyle";
 import SegundaPage from './SecundaPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AssentosPage from './AssentosPage';
 
 function App() {
   return (
@@ -15,8 +16,10 @@ function App() {
       <Routes>
         <Route path='/' element={<FilmePage />} />
         <Route path='/sessoes/:IDfilme' element={<SegundaPage />} />
+        <Route path='/assentos/:IDassentos' element={<AssentosPage/>}/>
       </Routes>
-
+      
+     
 
     </BrowserRouter>
   )

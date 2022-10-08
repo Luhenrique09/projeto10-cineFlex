@@ -40,7 +40,6 @@ const Title = styled.div`
   width: 100%;
   height: 110px;
   font-size: 24px;
-  font-family: Roboto;
   display: flex;
   justify-content: center;
   align-items: center;

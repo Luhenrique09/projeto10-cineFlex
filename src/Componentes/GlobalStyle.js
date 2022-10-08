@@ -2,10 +2,15 @@ import { createGlobalStyle } from "styled-components";
 
 
 const GlobalStyle = createGlobalStyle`
-
+ @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@100;300;500&display=swap');
 *{
 	box-sizing: border-box;
+	text-decoration: none;
 }
+body {
+  font-family: 'Roboto', serif;
+}
+
 
 
 /* http://meyerweb.com/eric/tools/css/reset/
