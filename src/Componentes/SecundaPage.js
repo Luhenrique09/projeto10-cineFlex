@@ -5,28 +5,29 @@ import { useParams } from 'react-router-dom';
 import Sessoes from './Sessoes';
 
 
-function SelecionarHorario() {
+function SelecionarHorario({setFilmeEscolhido}) {
 
     const {IDfilme} = useParams();
     const URLFilme = `https://mock-api.driven.com.br/api/v5/cineflex/movies/${IDfilme}/showtimes`
     
     const [filme, setFilme] = useState([]);
     const [sessoes, setSessoes] = useState([])
+    setFilmeEscolhido(filme.title)
    
-
     useEffect(() => { 
         const promise = axios.get(URLFilme) 
 
         promise.then((res) => {
             setSessoes(res.data.days)
             setFilme(res.data)
+            
         })
 
         promise.catch((err) => {
             console.log(err.response.data)
         })        
     }, []); 
-    
+   
     return (
         <Div>
 
@@ -34,7 +35,7 @@ function SelecionarHorario() {
                 Selecione o horário
             </Title>
            
-            {sessoes.map((s) =><Sessoes key={s.id} sessoes={s}/>)}
+            {sessoes.map((s) =><Sessoes key={s.id}sessoes={s}/>)}
              
             <Inferior>
                 <div><img src={filme.posterURL} /></div>

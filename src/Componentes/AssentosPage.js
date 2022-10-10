@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import Assentos from './Assentos';
 import RegComprador from './RegComprador';
 import { Link } from 'react-router-dom';
-function AssentosPage() {
+function AssentosPage({setComprador, setcpfComprador, setAssentosEscolhidos}) {
 
     const { IDassentos } = useParams();
     const URL = `https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${IDassentos}/seats`
@@ -22,7 +22,6 @@ function AssentosPage() {
         const promise = axios.get(URL)
 
         promise.then((res) => {
-            console.log(res.data.seats)
             setAssentos(res.data.seats)
             setFilme(res.data.movie)
         })
@@ -32,8 +31,10 @@ function AssentosPage() {
         })
     }, []);
     
-    console.log(cpf, nome)
     function enviar(){
+       setAssentosEscolhidos(reservados)
+        setComprador(nome)
+        setcpfComprador(cpf)
         
         const URLPost = 'https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many'
         const body = {
@@ -45,11 +46,11 @@ function AssentosPage() {
         const promise = axios.post(URLPost, body)
 
         promise.then(() => { 
-            alert('certo!')
+            
         })
 
-        promise.catch(() => {
-            console.log('nao')
+        promise.catch((error) => {
+            alert(error.response.data)
         })
     }
     
@@ -67,7 +68,7 @@ function AssentosPage() {
                 <Indisp><div></div>Indisponivel</Indisp>
             </Intro>
 
-            <RegComprador nome={nome} setNome={setNome} cpf={cpf} setcpf={setcpf}/>
+            <RegComprador  setcpfComprador={setcpfComprador} setComprador={setComprador} nome={nome} setNome={setNome} cpf={cpf} setcpf={setcpf}/>
 
             <Link to={`/sucesso`}>
                     <button onClick={enviar} type='submit'>Reservar assentos(s)</button>

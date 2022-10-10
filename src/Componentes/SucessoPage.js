@@ -1,6 +1,6 @@
 import styled from "styled-components"
-import { Link, useParams } from "react-router-dom";
-function Sucesso() {
+import { Link } from "react-router-dom";
+function Sucesso({filmeEscolhido, sessaoEscolhida, comprador, cpfComprador, assentosEscolhidos}) {
 
     return (
         <div>
@@ -9,16 +9,15 @@ function Sucesso() {
             </Title>
             <Div>
                 <h1>Filme e sessão</h1>
-                <h2>Filme</h2>
-                <h2>Data e sessao</h2>
+                <h2>{filmeEscolhido}</h2>
+                <h2>{sessaoEscolhida}</h2>
 
                 <h1>Ingressos</h1>
-                <h2>assento </h2>
-                <h2>assento </h2>
+                {assentosEscolhidos.map((a) => <h2>Assento {a}</h2>)}
 
                 <h1>Comprador</h1>
-                <h2>nome</h2>
-                <h2>cpf</h2>
+                <h2>Nome: {comprador}</h2>
+                <h2>CPF: {cpfComprador}</h2>
 
                 <Link to={`/`}>
                     <button>Voltar pra Home</button>

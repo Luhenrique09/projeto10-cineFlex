@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import FilmePage from './FilmePage';
 import GlobalStyle from "./GlobalStyle";
@@ -8,6 +8,11 @@ import AssentosPage from './AssentosPage';
 import Sucesso from './SucessoPage';
 
 function App() {
+  const [comprador, setComprador] = useState()
+  const [cpfComprador, setcpfComprador] = useState()
+  const [filmeEscolhido, setFilmeEscolhido] = useState()
+  const [assentosEscolhidos, setAssentosEscolhidos] = useState()
+
   return (
     <BrowserRouter>
       <GlobalStyle />
@@ -16,9 +21,9 @@ function App() {
       </Top>
       <Routes>
         <Route path='/' element={<FilmePage />} />
-        <Route path='/sessoes/:IDfilme' element={<SegundaPage />} />
-        <Route path='/assentos/:IDassentos' element={<AssentosPage/>}/>
-        <Route path='/sucesso' element={<Sucesso/>} />
+        <Route path='/sessoes/:IDfilme' element={<SegundaPage setFilmeEscolhido={setFilmeEscolhido} />} />
+        <Route path='/assentos/:IDassentos' element={<AssentosPage setAssentosEscolhidos={setAssentosEscolhidos} setcpfComprador={setcpfComprador} setComprador={setComprador}/>}/>
+        <Route path='/sucesso' element={<Sucesso assentosEscolhidos={assentosEscolhidos} comprador={comprador} cpfComprador={cpfComprador} filmeEscolhido={filmeEscolhido}/>} />
       </Routes>
       
      

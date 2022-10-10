@@ -13,7 +13,6 @@ function FilmePage() {
         const promise = axios.get(URLFilmes)
 
         promise.then((res) => {
-            console.log(res.data)
             setFilmes(res.data)
         })
 
