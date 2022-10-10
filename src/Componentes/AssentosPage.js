@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import Assentos from './Assentos';
 import RegComprador from './RegComprador';
+import { Link } from 'react-router-dom';
 function AssentosPage() {
 
     const { IDassentos } = useParams();
@@ -11,6 +12,10 @@ function AssentosPage() {
 
     const [filme, setFilme] = useState([]);
     const [assentos, setAssentos] = useState([])
+    const [reservados, setReservados] = useState([])
+    const [IDreservados, setIDreservados] = useState([])
+    const [nome, setNome] = useState('')
+    const [cpf, setcpf] = useState('');
 
 
     useEffect(() => {
@@ -26,23 +31,47 @@ function AssentosPage() {
             console.log(err.response.data)
         })
     }, []);
+    
+    console.log(cpf, nome)
+    function enviar(){
+        
+        const URLPost = 'https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many'
+        const body = {
+            ids: IDreservados,
+            name: nome,
+            cpf: cpf
+        }
 
+        const promise = axios.post(URLPost, body)
+
+        promise.then(() => { 
+            alert('certo!')
+        })
+
+        promise.catch(() => {
+            console.log('nao')
+        })
+    }
+    
     return (
         <Div>
             <Title>
                 Selecione o(s) assento(s)
             </Title>
             <AssentosDis>
-                {assentos.map((a) => <Assentos key={a.id} assentos={a.name} a={a}/>)}
+                {assentos.map((a) => <Assentos key={a.id} reservados={reservados} setReservados={setReservados} IDreservados={IDreservados} setIDreservados={setIDreservados} a={a} />)}
             </AssentosDis>
             <Intro>
                 <Sele><div></div>Selecionado</Sele>
-                <Disp><div></div>Disponível</Disp> 
+                <Disp><div></div>Disponível</Disp>
                 <Indisp><div></div>Indisponivel</Indisp>
             </Intro>
-            
-               <RegComprador/>
-          
+
+            <RegComprador nome={nome} setNome={setNome} cpf={cpf} setcpf={setcpf}/>
+
+            <Link to={`/sucesso`}>
+                    <button onClick={enviar} type='submit'>Reservar assentos(s)</button>
+                </Link>
 
             <Inferior>
                 <div><img src={filme.posterURL} /></div>
@@ -63,6 +92,16 @@ const Div = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      button{
+        margin-top:57px;
+        width: 225px;
+        height: 42px;
+        background-color: #e8833a;
+        border-radius: 3px;
+        color: #ffffff;
+        border:none;
+    }
+      
 `
 
 const Title = styled.div`

@@ -5,6 +5,7 @@ import GlobalStyle from "./GlobalStyle";
 import SegundaPage from './SecundaPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AssentosPage from './AssentosPage';
+import Sucesso from './SucessoPage';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/' element={<FilmePage />} />
         <Route path='/sessoes/:IDfilme' element={<SegundaPage />} />
         <Route path='/assentos/:IDassentos' element={<AssentosPage/>}/>
+        <Route path='/sucesso' element={<Sucesso/>} />
       </Routes>
       
      
